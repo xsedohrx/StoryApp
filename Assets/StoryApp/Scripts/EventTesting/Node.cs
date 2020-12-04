@@ -5,30 +5,53 @@ using UnityEngine;
 
 public class Node
 {
+    
 
-    NodeProperties _nodeProperties;
-    int _id;
-    string _description;
-    public Node(int id, string title) {
-        _nodeProperties = new NodeProperties();
-        _nodeProperties.id = id;
-        _nodeProperties.description = _description;
-        
-        StoryLibraryManager.loadStory += getStory;
+    #region Properties
+    private int _id, _ageGroup, _storyLength;
+    private string _description, _title;
 
-    }
 
-    private void getStory()
+    public int ID
     {
-        //Debug.Log("StoryID: " + nodeProperties.id + "_StoryDescription: " + nodeProperties.description);
-        NodeElements storyElement = new NodeElements(0, "", "");
+        get { return _id; }
+        set { _id = value; }
+    }
+    public string Description
+    {
+        get { return _description; }
+        set { _description = value; }
+    }
+
+    public string Title
+    {
+        get { return _title; }
+        set { _title = value; }
+    }
+
+    public int AgeGroup
+    {
+        get { return _ageGroup; }
+        set { _ageGroup = value; }
+    }
+    public int StoryLength
+    {
+        get { return _storyLength; }
+        set { _storyLength = value; }
+    }
+
+    #endregion
+
+
+    public Node(int id, string title, string description, int ageGroup, int storyLength) {
+        //_nodeProperties = new NodeProperties();
+        _id = id;
+        _description = description;
+        _title = title;
+        _ageGroup = ageGroup;
+        _storyLength = storyLength;
         
-        
+
     }
 }
 
-public class NodeProperties {
-    public int id;
-    public string description;
-
-}

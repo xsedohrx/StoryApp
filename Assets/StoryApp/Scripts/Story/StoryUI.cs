@@ -9,13 +9,14 @@ public class StoryUI : MonoBehaviour
 {
     [SerializeField]
     private GameObject _storyInfoPanel;
-
+    [SerializeField]
+    private TMP_Text _txtTitle, _txtDescription, _txtAge, _txtStoryLength;
+    
     private bool _isShowing;
-
     public bool IsShowing
     {
-        get { return _isShowing; }
-        set { _isShowing = value; }
+        get => _isShowing; 
+        protected set => _isShowing = value;
     }
 
 
@@ -25,8 +26,18 @@ public class StoryUI : MonoBehaviour
         {
             togglePanel();
         }
+
+        //SetStoryInfo(StoryLibraryManager.Instance.storyDictionary[i]);
+
     }
 
+    private void SetStoryInfo(Node story)
+    {        
+        this._txtTitle.text = story.Title.ToString() + "";
+        this._txtDescription.text = story.Description.ToString() + "";
+        this._txtAge.text = story.AgeGroup.ToString() + "";
+        this._txtStoryLength.text = story.StoryLength.ToString() + "";     
+    }
 
     public void togglePanel()
     {

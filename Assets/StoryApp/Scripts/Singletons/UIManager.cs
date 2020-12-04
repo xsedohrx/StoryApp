@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class UIManager : MonoBehaviour
 {
@@ -12,7 +14,7 @@ public class UIManager : MonoBehaviour
         get
         {
             if (_instance == null)
-                Debug.Log("Input Manager is NULL!");
+                throw (new NullReferenceException());
             return _instance;
         }
     }
@@ -23,6 +25,8 @@ public class UIManager : MonoBehaviour
     }
 
     #endregion
+    
+
     public delegate void ClickEvent();
     public static event ClickEvent eventShowOnClick;
     

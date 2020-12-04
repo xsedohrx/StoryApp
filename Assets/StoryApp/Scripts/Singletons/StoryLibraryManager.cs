@@ -3,20 +3,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 /// <summary>
 /// The storylibrary is the database/library where all the stories are stored for users to download.
 /// </summary>
 public class StoryLibraryManager : MonoBehaviour
 {
-    public static Dictionary<int, Node> storyDictionary;
 
-    public delegate void LoadStories();
-    public static event LoadStories loadStory;
+    private bool _hasRefreshed;
+    public Dictionary<int, Node> storyDictionary;
+    public List<GameObject> storyGOList;
+    public static Action loadStory;
+
+
+    void Awake()
+    {
+        DontDestroySingleton();
+        storyDictionary = new Dictionary<int, Node>();
+        storyGOList = new List<GameObject>();
+
+        AddToStoryDictionary(0, new Node(0, "First", "hhjdksaglkfh", 6, 0));
+        AddToStoryDictionary(1, new Node(1, "second", "jyukuytui  hhjjgbjndkfdsbn  asaglkfh", 12, 0));
+        AddToStoryDictionary(2, new Node(2, "third", "dfsa", 9, 0));
+    }
+    #region Singleton
 
     private static StoryLibraryManager _instance;
-    private bool _hasRefreshed;
-
     public static StoryLibraryManager Instance
     {
         get
@@ -26,14 +39,6 @@ public class StoryLibraryManager : MonoBehaviour
             return _instance;
         }
     }
-
-    void Awake()
-    {
-        DontDestroySingleton();
-        storyDictionary = new Dictionary<int, Node>();
-        AddToStoryDictionary(0, new Node(0, "First"));
-    }
-
     //Never destroy the singleton.
     private void DontDestroySingleton()
     {
@@ -41,14 +46,20 @@ public class StoryLibraryManager : MonoBehaviour
         DontDestroyOnLoad(this);
     }
 
+    #endregion
     private void Update()
     {
         BroadcastRefreshLibrary();
         StartStoryScene("New Scene 1");
     }
 
-    //Get user Input
-    private static void StartStoryScene(string sceneName)
+    private void Start()
+    {
+        
+    }
+
+    //Get user Input to load new Scene
+    private void StartStoryScene(string sceneName)
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
