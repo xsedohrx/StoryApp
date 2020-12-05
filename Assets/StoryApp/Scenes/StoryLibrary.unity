@@ -130,7 +130,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 197295533}
-  - component: {fileID: 197295534}
   m_Layer: 0
   m_Name: UserInput
   m_TagString: Untagged
@@ -152,18 +151,6 @@ Transform:
   m_Father: {fileID: 1936865724}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &197295534
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 197295532}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d863fede34172d7429a0edd906c9d376, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &401002873
 GameObject:
   m_ObjectHideFlags: 0
@@ -500,10 +487,19 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2152626951778787421, guid: 5d5c0e192e837bb488149b0314052437,
+        type: 3}
+      propertyPath: _storyPrefab
+      value: 
+      objectReference: {fileID: 3093288253205727729, guid: cba3447559250444e9648e2007cdadac,
+        type: 3}
     - target: {fileID: 2152626952224870469, guid: 5d5c0e192e837bb488149b0314052437,
         type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 687449694}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
+    - {fileID: 2152626951150735778, guid: 5d5c0e192e837bb488149b0314052437, type: 3}
+    - {fileID: 2152626951150735776, guid: 5d5c0e192e837bb488149b0314052437, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5d5c0e192e837bb488149b0314052437, type: 3}

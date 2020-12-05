@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StoryBockTest : MonoBehaviour, ISelectable<GameObject>  // NOTE: Since IDamageable is generic we had to choose the type when including
+public class StoryBockTest : MonoBehaviour  // NOTE: Since IDamageable is generic we had to choose the type when including
 {
     //public GameObject storyBlock { get; set; }
 

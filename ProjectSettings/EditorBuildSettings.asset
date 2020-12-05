@@ -6,15 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/ToolKit.unity
+    path: Assets/StoryApp/Scenes/ToolKit.unity
     guid: 6a52b7371bcd83f45afc15136d1077db
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/StorySelectionScene.unity
-    guid: ec7f07987cb49b640a107423e20e6567
-  - enabled: 1
-    path: Assets/StoryApp/New Scene.unity
+    path: Assets/StoryApp/Scenes/StoryLibrary.unity
     guid: dafc9d0bd0182d540a8e01a8e8958249
   - enabled: 1
-    path: Assets/StoryApp/New Scene 1.unity
+    path: Assets/StoryApp/Scenes/StoryScene.unity
     guid: 4559c58801150144bb7ccb262eb6f143
   m_configObjects: {}

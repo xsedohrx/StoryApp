@@ -5,20 +5,25 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class StoryUI : MonoBehaviour
+public class LibraryUI : MonoBehaviour
 {
     [SerializeField]
     private GameObject _storyInfoPanel;
     [SerializeField]
     private TMP_Text _txtTitle, _txtDescription, _txtAge, _txtStoryLength;
     
-    private bool _isShowing;
+    private bool IsStoryInfoPanelShowing;
     public bool IsShowing
     {
-        get => _isShowing; 
-        protected set => _isShowing = value;
+        get => IsStoryInfoPanelShowing; 
+        protected set => IsStoryInfoPanelShowing = value;
     }
 
+    private void OnEnable()
+    {
+        LibraryGameObjectGenerator.Instance.UpdateUI += GetStoryDictionaryItem;
+
+    }
 
     private void Update()
     {
@@ -27,13 +32,23 @@ public class StoryUI : MonoBehaviour
             togglePanel();
         }
 
-        //SetStoryInfo(StoryLibraryManager.Instance.storyDictionary[i]);
 
     }
 
-    private void SetStoryInfo(Node story)
+    private void GetStoryDictionaryItem()
+    {
+        for (int i = 0; i < StoryLibraryManager.Instance.storyGOList.Count; i++)
+        {
+            if (gameObject.name == StoryLibraryManager.Instance.storyGOList[i].name)
+            {
+                GetStoryInfo(StoryLibraryManager.Instance.storyDict[i]);
+            }
+        }
+    }
+
+    private void GetStoryInfo(Story story)
     {        
-        this._txtTitle.text = story.Title.ToString() + "";
+        this._txtTitle.text =story.Title.ToString() + "";
         this._txtDescription.text = story.Description.ToString() + "";
         this._txtAge.text = story.AgeGroup.ToString() + "";
         this._txtStoryLength.text = story.StoryLength.ToString() + "";     
@@ -42,15 +57,9 @@ public class StoryUI : MonoBehaviour
     public void togglePanel()
     {
         if (this._storyInfoPanel.activeSelf)
-        {
-            this._storyInfoPanel.SetActive(false);
-        }
+            this._storyInfoPanel.SetActive(false);        
         else
-        {
             this._storyInfoPanel.SetActive(true);
-        }
-        UIManager.IsShowing = false;
-        
     }
 
 
