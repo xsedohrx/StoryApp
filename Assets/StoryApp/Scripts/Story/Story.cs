@@ -50,7 +50,8 @@ public class Story
         _title = title;
         _description = description;
         _ageGroup = ageGroup;
-        _storyLength = storyLength;        
+        _storyLength = storyLength;
+        
     }
 
     #endregion

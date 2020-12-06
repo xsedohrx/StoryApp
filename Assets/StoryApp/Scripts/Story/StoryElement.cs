@@ -13,6 +13,7 @@ public class StoryElement
     public bool _hasChoice { get; }
     #endregion
     #region StoryElementConstructor
+    
     public StoryElement(int id, string title, string description, bool hasChoice, int idOfStory)
     {
         this._id = id;
