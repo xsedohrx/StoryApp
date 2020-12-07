@@ -6,6 +6,12 @@ using UnityEngine;
 
 public class Carousel : MonoBehaviour
 {
+    private void Start()
+    {
+        Debug.Log(PlayerPrefs.GetString("StoryTitle"));
+        Debug.Log(PlayerPrefs.GetInt("StoryLength"));
+    }
+
     //List<GameObject> _storyList;
     //[SerializeField]
     //GameObject _storyGOPrefab;
@@ -31,7 +37,7 @@ public class Carousel : MonoBehaviour
     //// Update is called once per frame
     //void Update()
     //{
-        
+
     //}
 
 

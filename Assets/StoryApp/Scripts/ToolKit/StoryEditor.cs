@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class StoryEditor : MonoBehaviour
 {
@@ -9,6 +11,7 @@ public class StoryEditor : MonoBehaviour
     [SerializeField]
     GameObject elementGameObject, pnl_elementSelected;
     private float xOffset;
+    public Text txt_storyTitle;
 
     private void Awake()
     {
@@ -20,6 +23,20 @@ public class StoryEditor : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public void SaveStory() {
+        string storyTitle = txt_storyTitle.text.ToString();
+        PlayerPrefs.SetString("StoryTitle", storyTitle);
+        PlayerPrefs.SetInt("StoryLength", elementObjectList.Count);
+        Debug.Log("Title Set: " + PlayerPrefs.GetString("StoryTitle")) ;
+        SaveStoryToDictionary();
+
+    }
+
+    private void SaveStoryToDictionary()
+    {
+        StoryLibraryManager.Instance.storyDict.Add(0, new Story(0,"","",0, 0));
     }
 
     public void ReturnToLibrary() {
