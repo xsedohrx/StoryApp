@@ -19,11 +19,6 @@ public class StoryEditor : MonoBehaviour
         pnl_elementSelected.SetActive(true);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     public void SaveStory() {
         string storyTitle = txt_storyTitle.text.ToString();
