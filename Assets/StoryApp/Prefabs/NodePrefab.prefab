@@ -12,11 +12,7 @@ GameObject:
   - component: {fileID: 3943761851047949059}
   - component: {fileID: 7243530877858523863}
   - component: {fileID: 8139526806340744887}
-<<<<<<< HEAD
   - component: {fileID: 4256120924644614178}
-=======
-  - component: {fileID: 443717583730532532}
->>>>>>> main
   m_Layer: 0
   m_Name: NodePrefab
   m_TagString: Untagged
@@ -98,11 +94,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
-<<<<<<< HEAD
 --- !u!114 &4256120924644614178
-=======
---- !u!114 &443717583730532532
->>>>>>> main
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -111,10 +103,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 5926462618984640305}
   m_Enabled: 1
   m_EditorHideFlags: 0
-<<<<<<< HEAD
   m_Script: {fileID: 11500000, guid: 63fa28591d5d66f46b28a0593927e716, type: 3}
-=======
-  m_Script: {fileID: 11500000, guid: e5a24f1b0eff98d4a924cdd62d13d2e0, type: 3}
->>>>>>> main
   m_Name: 
   m_EditorClassIdentifier: 
