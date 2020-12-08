@@ -23,6 +23,13 @@ public class Controller : MonoBehaviour
     }
     private void Update()
     {
+
+        MouseLinkControls();
+
+    }
+
+    private void MouseLinkControls()
+    {
         // If Mouse(0) is down
         if (MouseButtonDownRay() != null)
         {
@@ -123,7 +130,7 @@ public class Controller : MonoBehaviour
             }
         }
         // If Mouse(0) is up
-        else if (MouseButtonUpRay() && isClicked) 
+        else if (MouseButtonUpRay() && isClicked)
         {
             isDraggable = false;
 
@@ -174,7 +181,6 @@ public class Controller : MonoBehaviour
             RemoveCurrentLink();
             ResetTempVar();
         }
-
     }
 
     // Delete/Reset Methods
