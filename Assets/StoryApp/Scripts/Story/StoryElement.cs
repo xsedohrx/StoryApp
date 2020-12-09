@@ -14,9 +14,9 @@ public class StoryElement
     public bool _hasChoice { get; }
     public int _choiceID { get; }
     public Vector3 _position { get; }
-    Node _parent { get; }
-    List<Node> _children { get; }
-    Image _image { get; }
+    public Node _parent { get; }
+    public List<Node> _children { get; }
+    public Image _image { get; }
 
 #endregion
 #region StoryElementConstructor
