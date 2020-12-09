@@ -8,24 +8,52 @@ public class MouseController : MonoBehaviour
     private DataContainer dataContainer;
     
     //Prefabs
-    public GameObject linkPrefab;
+    //public GameObject linkPrefab;
 
     // Temp | Dynamic Variables
     public GameObject currentGameObject;
+    private LineRenderer lineLink;
+
+    Link currentLink;
+
     private int currentIndex;
     private bool isHighlighted;     // TBD for highlighting node gameObj
+
+    private Vector3 currentPos;
     private bool isDraggable;
+    private bool isNodeDraggable;
     private bool isClicked;
     void Awake()
     {
         currentIndex = 0;
         currentGameObject = null;
+        isNodeDraggable = false;
     }
     private void Update()
     {
 
         MouseLinkControls();
+        MouseNodeControls();
+    }
+    private void MouseNodeControls()
+    {
+        if (MouseButtonDownRay() != null)
+        {
+            if(!MouseButtonDownRay().GetComponent<Node>().isHighlighted)
+            {
+                MouseButtonDownRay().GetComponent<MeshRenderer>().material.color = new Color(0.9f, 1,0);
+                Debug.Log("This is Highlighted");
+            }
+            else
+            {
+                MouseButtonDownRay().GetComponent<MeshRenderer>().material.color = MouseButtonDownRay().GetComponent<Node>().nodeNoHighlightColor;
+                Debug.Log("This is Not Highlighted");
+            }
+            Debug.Log(MouseButtonDownRay().GetComponent<Node>().isHighlighted);
 
+            MouseButtonDownRay().GetComponent<Node>().isHighlighted = MouseButtonDownRay().GetComponent<Node>().isHighlighted ? false : true;
+            isNodeDraggable = true;
+        }
     }
 
     private void MouseLinkControls()
@@ -35,10 +63,7 @@ public class MouseController : MonoBehaviour
         {
             currentGameObject = MouseButtonDownRay();
             GameObject startNodeGO = currentGameObject;
-            GameObject currentLinkGO;
-            Link currentLink;
             Node startNode = startNodeGO.GetComponent<Node>();
-
 
             if (startNode.isCapacity())
             {
@@ -46,63 +71,9 @@ public class MouseController : MonoBehaviour
                 isDraggable = false;
                 isClicked = false;
             }
-            else if (!startNode.isCapacity() && startNode.linkCount == 0)
+            else if (!startNode.isCapacity())
             {
-                currentLinkGO = Instantiate(linkPrefab, currentGameObject.transform.position, Quaternion.identity, currentGameObject.transform);
-                {
-                    // Link Assignments
-                    currentLink = currentLinkGO.GetComponent<Link>();
-                    currentLink.name = startNode.name + "Link" + " A";
-                    currentLink.linkID = currentIndex;
-                    currentLink.linkIndex = 0;
-                    currentLink.parentObject = startNodeGO.transform;
-                    currentLink.startPos = startNodeGO.transform.position;
-                    currentLink.lineLink = currentLinkGO.GetComponent<LineRenderer>();
-                    currentLink.linkOriginNode = currentLinkGO;
-
-                    //Node Assignments;
-                    startNode.linkCount = 1;
-                    startNode.outLinkA = currentLinkGO;
-
-                    // LineRenderer Start Position Assignments
-                    currentLink.lineLink.enabled = true;
-                    currentLink.lineLink.positionCount = 2;
-                    currentLink.lineLink.startWidth = 0.2f;
-                    currentLink.lineLink.SetPosition(0, currentLink.startPos);
-
-                    // Add Link GameObejct to List
-                    dataContainer.AddGameObjList(currentLinkGO);
-                }
-                isDraggable = true;
-                isClicked = true;
-            }
-            else if (!startNode.isCapacity() && startNode.linkCount == 1)
-            {
-                currentLinkGO = Instantiate(linkPrefab, currentGameObject.transform.position, Quaternion.identity, currentGameObject.transform);
-                {
-                    // Link Assignments
-                    currentLink = currentLinkGO.GetComponent<Link>();
-                    currentLink.name = startNode.name + "Link" + " B";
-                    currentLink.linkID = currentIndex;
-                    currentLink.linkIndex = 0;
-                    currentLink.parentObject = startNodeGO.transform;
-                    currentLink.startPos = startNodeGO.transform.position;
-                    currentLink.lineLink = currentLinkGO.GetComponent<LineRenderer>();
-                    currentLink.linkOriginNode = currentLinkGO;
-
-                    //Node Assignments;
-                    startNode.linkCount = 2;
-                    startNode.outLinkB = currentLinkGO;
-
-                    // LineRenderer Start Position Assignments
-                    currentLink.lineLink.enabled = true;
-                    currentLink.lineLink.positionCount = 2;
-                    currentLink.lineLink.startWidth = 0.2f;
-                    currentLink.lineLink.SetPosition(0, currentLink.startPos);
-
-                    // Add Link GameObejct to List
-                    dataContainer.AddGameObjList(currentLinkGO);
-                }
+                startNode.LinkSpawner(currentGameObject, out lineLink, out currentLink);
                 isDraggable = true;
                 isClicked = true;
             }
@@ -118,13 +89,6 @@ public class MouseController : MonoBehaviour
         {
             if (isDraggable && isClicked)
             {
-                LineRenderer lineLink = dataContainer.ReturnLineRendererFromList(currentIndex);
-
-                Vector3 currentPos = currentGameObject.transform.position;
-
-                lineLink.SetPosition(1, currentPos);
-                lineLink.positionCount = 2;
-
                 currentPos = GetCurrentMousePosition().GetValueOrDefault();
                 lineLink.SetPosition(1, currentPos);
             }
@@ -139,20 +103,25 @@ public class MouseController : MonoBehaviour
             if (currentGameObject != null && currentGameObject != buttonUp && isClicked)
             {
                 // Assign temp variables for the mouse up over end node event
-                GameObject startNodeGO = dataContainer.gameObjList[currentIndex].gameObject;
+                GameObject startLinkGO = dataContainer.gameObjList[currentIndex].gameObject;
                 GameObject endNodeGO = buttonUp;
                 Node startNode = currentGameObject.gameObject.GetComponent<Node>();
                 Node endNode = endNodeGO.GetComponent<Node>();
-                Link currentLink = startNodeGO.GetComponent<Link>();
-                LineRenderer lineLink = dataContainer.ReturnLineRendererFromList(currentIndex);
+                Link currentLink = startLinkGO.GetComponent<Link>();
 
                 // Set Link Attributes
                 currentLink.endPos = buttonUp.transform.position;
 
-                // Set Node Attributes
+                // Set Node IN Attributes
                 endNode.inNode = currentGameObject;
-                endNode.inLink = startNodeGO;
+                endNode.inLink = startLinkGO;
 
+
+
+                endNode.AddInToSList(currentGameObject.name, currentGameObject);
+                endNode.sortedListCount = endNode.inNodeSList.Count;
+
+                // Set Node OUT Attributes
                 if (startNode.linkCount == 1)
                 {
                     startNode.outNodeA = endNodeGO;
@@ -163,13 +132,14 @@ public class MouseController : MonoBehaviour
                 }
 
                 // Set LineRenderer Attributes
-                lineLink.SetPosition(1, currentLink.endPos);
                 lineLink.positionCount = 2;
+                lineLink.SetPosition(1, currentLink.endPos);
 
                 // Update current index for hollding current temp variables
                 currentIndex++;
                 ResetTempVar();
             }
+            // If mouse is up over the original gameObj
             else if (currentGameObject && MouseButtonUpRay() != null && currentGameObject.GetComponent<Collider>() == MouseButtonUpRay().GetComponent<Collider>() && isClicked) // Mouse Up As Button
             {
                 RemoveCurrentLink();
@@ -225,13 +195,13 @@ public class MouseController : MonoBehaviour
                 hitReturnUp = hitInfo.collider.gameObject;
                 if (hitReturnUp != null)
                 {
-                    Debug.Log("Hit Return suceeded : " + hitReturnUp.name);
+                    //Debug.Log("Hit Return suceeded : " + hitReturnUp.name);
                     return hitReturnUp;
                 }
             }
             else
             {
-                Debug.Log("Hit Return was null");
+                //Debug.Log("Hit Return was null");
                 return null;
             }
         }

@@ -40,17 +40,17 @@ LineRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9143147551042443507}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 0
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RenderingLayerMask: 1
-  m_RendererPriority: 0
+  m_RendererPriority: 10
   m_Materials:
-  - {fileID: 2100000, guid: 359df6694bae7484cbff410f206dfa1b, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -73,7 +73,7 @@ LineRenderer:
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 1}
+  - {x: 0, y: 0, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -141,3 +141,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d45d3175c79bfda47880cc8e56dc6610, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  linkPrefab: {fileID: 9143147551042443507}
+  Red: {fileID: 2100000, guid: b4221ded3f25c4a43840d509ab8abace, type: 2}
+  Blue: {fileID: 2100000, guid: 359df6694bae7484cbff410f206dfa1b, type: 2}
