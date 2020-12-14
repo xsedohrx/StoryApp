@@ -13,8 +13,11 @@ public class StoryEditor : MonoBehaviour
     private float xOffset;
     public Text txt_storyTitle;
 
+    public int nodeNameIndex { get; set; }                          // DAVE
+
     private void Awake()
     {
+        nodeNameIndex = 0;                                          // DAVE
         elementObjectList = new List<GameObject>();
         pnl_elementSelected.SetActive(true);
     }
@@ -51,7 +54,10 @@ public class StoryEditor : MonoBehaviour
     {
         Vector3 position = positionToSpawn;
         GameObject elementGameObjectToAdd = Instantiate(elementGameObject, positionToSpawn, Quaternion.identity);
+        elementGameObjectToAdd.name = "Node" + nodeNameIndex;
+        elementGameObjectToAdd.GetComponent<Node>().access = Node.Access.open;
         elementObjectList.Add(elementGameObjectToAdd);
+        nodeNameIndex++;
     }
 
     #endregion
