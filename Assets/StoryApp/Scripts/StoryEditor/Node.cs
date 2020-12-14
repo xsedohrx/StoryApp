@@ -9,53 +9,75 @@ public class Node : MonoBehaviour
     //Prefabs
     public GameObject linkPrefab;
 
+    // Enum
+    public enum Access
+    {
+        open,
+        closed,
+    }
 
     //Fields
     public Color nodeHighlightColor;
     public Color nodeNoHighlightColor;
-
-    // Properties
-    public string nodeName { get; set; }
-    public int nodeID { get; set; }
-
-    // INPUTS
-    public GameObject inLink { get; set; }
-    public GameObject inNode { get; set; }
-
-    [SerializeField]
-    public int sortedListCount = 0;
-    public Dictionary<string, GameObject> inNodeSList { get; set; }
-
-
-    // OUTPUTS 
-    // A
-    public GameObject outNodeA { get; set; }
-    public GameObject outLinkA { get; set; }
-
-    // B
-    public GameObject outNodeB { get; set; }
-    public GameObject outLinkB { get; set; }
-
     // ----------------------------------
 
-    public int linkCount { get; set; }
-    public int maxLinks { get; set; }
+    // Properties
+    public Access access { get; set; }
+    public string nodeName { get; set; }
+    public int nodeID { get; set; }
+    // ----------------------------------
+
+    //INPUT NODES
+    public GameObject inNode { get; set; }
+
+    [SerializeField] public int inNodeCount;
+    public SortedDictionary<string, GameObject> inNodeDictionary { get; set; }
+
+    // OUTPUTS NODES
+    public GameObject outNodeA { get; set; }
+    public GameObject outNodeB { get; set; }
+    // ----------------------------------
+
+    // INPUTS LINKS
+    [SerializeField] public int inLinkCount;
+    public GameObject inLink { get; set; }
+    public SortedDictionary<string, GameObject> inLinkDictionary { get; set; }
+    // ----------------------------------
+
+    // OUTPUTS LINKS
+    [SerializeField] public int outLinkCount;
+    public int maxOutLinks { get; set; }
+    public GameObject outLinkA { get; set; }
+    public GameObject outLinkB { get; set; }
+    public SortedDictionary<string, GameObject> outLinkDictionary { get; set; }
+    // ----------------------------------
+
+
+
 
     public static bool queriesHitTriggers = true;   // ensures this object remains a HitTrigger for collider
 
-    public bool isHighlighted { get; set; }
 
     private void Awake()
     {
         nodeName = "node";
-        maxLinks = 2;
-        inNodeSList = new Dictionary<string, GameObject>();
+        inNodeCount = 0;
+        inNodeDictionary = new SortedDictionary<string, GameObject>();
+
+        inLinkCount = 0;
+        inLinkDictionary = new SortedDictionary<string, GameObject>();
+
+        maxOutLinks = 2;
+        outLinkCount = 0;
+        outLinkDictionary = new SortedDictionary<string, GameObject>();
+
         this.gameObject.GetComponent<MeshRenderer>().material.color = this.nodeNoHighlightColor;
+        this.access = Access.open;
     }
 
     public bool isCapacity()
     {
-        return this.linkCount == this.maxLinks ?  true : false;
+        return this.outLinkCount == this.maxOutLinks ? true : false;
     }
 
     public string ReturnName()
@@ -63,21 +85,103 @@ public class Node : MonoBehaviour
         return this.nodeName;
     }
 
-    public void AddInToSList(string nodeName, GameObject gameObject)
+
+    // Node Helper Functions
+    public bool duplicateNodeConnectionCheck(string nodeName)
     {
-    if(!inNodeSList.ContainsKey(nodeName))
+        if (inNodeDictionary.ContainsKey(nodeName))
         {
-            inNodeSList.Add(nodeName, gameObject);
+            Debug.Log("These Nodes were connected - DELETING");
+            return true;
+        }
+        else
+        {
+            Debug.Log("These Nodes are NOT connected");
+            return false;
+        }
+    }
+    public void AddInNodeDict(string nodeName, GameObject gameObject)
+    {
+        if (!inNodeDictionary.ContainsKey(nodeName))
+        {
+            inNodeDictionary.Add(nodeName, gameObject);
         }
         else
         {
             Debug.Log("These Nodes are already connected");
         }
     }
-
-        public GameObject LinkSpawner(GameObject nodeGameObj, out LineRenderer lineLink, out Link currentLink)
+    public void RemoveInNodeDict(string linkName)
     {
-        GameObject currentGO = Instantiate(linkPrefab, nodeGameObj.transform.position, Quaternion.identity, nodeGameObj.transform);
+        if (inNodeDictionary.TryGetValue(linkName, out GameObject linkObject))
+        {
+            inNodeDictionary.Remove(linkName);
+            Destroy(linkObject);
+            inNodeCount = inNodeDictionary.Count;
+        }
+    }
+
+    // Link Helper Functions
+    public void AddOutLinkDict(string nodeName, GameObject gameObject)
+    {
+        if (!outLinkDictionary.ContainsKey(nodeName))
+        {
+            outLinkDictionary.Add(nodeName, gameObject);
+            outLinkCount = this.outLinkDictionary.Count;
+        }
+    }
+    public void RemoveOutLinkDict(string linkName)
+    {
+        if (outLinkDictionary.TryGetValue(linkName, out GameObject linkObject))
+        {
+            outLinkDictionary.Remove(linkName);
+            Destroy(linkObject);
+            outLinkCount = outLinkDictionary.Count;
+        }
+    }
+    public void AddInLinkDict(string nodeName, GameObject gameObject)
+    {
+        if (!inLinkDictionary.ContainsKey(nodeName))
+        {
+            inLinkDictionary.Add(nodeName, gameObject);
+            inLinkCount = inLinkDictionary.Count;
+        }
+    }
+    public void RemoveInLinksDict(string linkName)
+    {
+        if (inLinkDictionary.TryGetValue(linkName, out GameObject linkObject))
+        {
+            inLinkDictionary.Remove(linkName);
+            Destroy(linkObject);
+            inLinkCount = inLinkDictionary.Count;
+        }
+    }
+
+    public void DragOutNodes(Vector3 mousePos)
+    {
+        foreach (KeyValuePair<string, GameObject> valuePair in outLinkDictionary)
+        {
+            valuePair.Value.GetComponent<LineRenderer>().SetPosition(0, mousePos);
+        }
+    }
+    public void DragInNodes(Vector3 mousePos)
+    {
+        foreach (KeyValuePair<string, GameObject> valuePair in inLinkDictionary)
+        {
+            for (int i = 0; i < valuePair.Value.transform.childCount; i++)
+            {
+                Debug.Log(valuePair.Key);
+                if (valuePair.Value.transform.GetChild(i).gameObject.name == valuePair.Key.ToString())
+                {
+                    valuePair.Value.transform.GetChild(i).GetComponent<LineRenderer>().SetPosition(1, mousePos);
+                }
+            }
+        }
+    }
+
+    public GameObject LinkSpawner(GameObject nodeGameObj, out LineRenderer lineLink, out Link currentLink, out string linkName, out GameObject currentGO)
+    {
+        currentGO = Instantiate(linkPrefab, nodeGameObj.transform.position, Quaternion.identity, nodeGameObj.transform);
         {
             //Assignments
             currentLink = currentGO.GetComponent<Link>();
@@ -85,7 +189,8 @@ public class Node : MonoBehaviour
             lineLink = currentLink.GetComponent<LineRenderer>();
 
             // Link Assignments
-            currentLink.name = startNode.linkCount == 0 ? startNode.name + "Link" + " A" : startNode.name + "Link" + " B";
+            currentLink.name = startNode.outLinkCount == 0 ? startNode.name + "Link" + "A" : startNode.name + "Link" + " B";
+            linkName = currentLink.name;
             currentLink.linkIndex = 0;
             currentLink.parentObject = nodeGameObj.transform;
             currentLink.startPos = nodeGameObj.transform.position;
@@ -93,9 +198,9 @@ public class Node : MonoBehaviour
             currentLink.linkOriginNode = nodeGameObj;
 
             //Node Assignments for the node that has just been clicked on to initiate the LineRenderer;
-            startNode.linkCount++;
 
-            if (startNode.linkCount <= 1)
+
+            if (startNode.outLinkCount == 0)
             {
                 startNode.outLinkA = currentGO;
                 lineLink.material = currentLink.Red;
@@ -107,18 +212,48 @@ public class Node : MonoBehaviour
             }
 
             // LineRenderer Start Position Assignments
+            //startNode.state = Node.State.selectable;
             lineLink.enabled = true;
             lineLink.positionCount = 2;
             lineLink.startWidth = 0.2f;
             lineLink.SetPosition(0, currentLink.startPos);
 
             // Add Link GameObejct to List
-            dataContainer.AddGameObjList(currentGO);
         }
+        //dataContainer.AddGameObjList(currentGO);
+        AddOutLinkDict(linkName, currentGO);
         return currentGO;
     }
 
+
+    //public void HighlightToggle(State state)
+    //{
+    //    switch (state)
+    //    {
+    //        case State.draggable:
+    //            this.gameObject.GetComponent<MeshRenderer>().material.color = nodeNoHighlightColor;
+    //            break;
+    //        case State.highlighted:
+    //            this.gameObject.GetComponent<MeshRenderer>().material.color = new Color(0.9f, 1, 0);
+    //            break;
+    //        case State.selectable:
+    //            this.gameObject.GetComponent<MeshRenderer>().material.color = new Color(0.9f, 1, 0);
+    //            break;
+    //        case State.linking:
+    //            this.gameObject.GetComponent<MeshRenderer>().material.color = new Color(0.9f, 1, 0);
+    //            break;
+    //    }
+    //}
 }
+
+
+//    Func<int> getRandomNumber = () => new Random().Next(1, 100);
+
+//    //Or 
+
+//    Func<int, int, int> Sum = (x, y) => x + y;
+
+
 
 
 

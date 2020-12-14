@@ -55,6 +55,7 @@ public class StoryEditor : MonoBehaviour
         Vector3 position = positionToSpawn;
         GameObject elementGameObjectToAdd = Instantiate(elementGameObject, positionToSpawn, Quaternion.identity);
         elementGameObjectToAdd.name = "Node" + nodeNameIndex;
+        elementGameObjectToAdd.GetComponent<Node>().access = Node.Access.open;
         elementObjectList.Add(elementGameObjectToAdd);
         nodeNameIndex++;
     }

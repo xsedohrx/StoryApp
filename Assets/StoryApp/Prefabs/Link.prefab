@@ -141,6 +141,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d45d3175c79bfda47880cc8e56dc6610, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  linkPrefab: {fileID: 9143147551042443507}
   Red: {fileID: 2100000, guid: b4221ded3f25c4a43840d509ab8abace, type: 2}
   Blue: {fileID: 2100000, guid: 359df6694bae7484cbff410f206dfa1b, type: 2}
