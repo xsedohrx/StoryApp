@@ -5,11 +5,32 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class StoryEditor : MonoBehaviour
+public class UIStoryEditor : MonoBehaviour
 {
+    /// <summary>
+    /// Create an instance and never destroy it
+    /// </summary>
+    private static UIStoryEditor _instance;
+    public static UIStoryEditor Instance
+    {
+        get
+        {
+            if (_instance == null)
+                Debug.LogError("UIStoryEditor is NULL");
+            return _instance;
+        }
+    }
+
+    //Never destroy the singleton.
+    private void DontDestroySingleton()
+    {
+        _instance = this;
+        DontDestroyOnLoad(this);
+    }
+
     List<GameObject> elementObjectList;
     [SerializeField]
-    GameObject elementGameObject, pnl_elementSelected;
+    GameObject elementGameObject, pnl_elementSelected, pnl_elementInfo;
     private float xOffset;
     public Text txt_storyTitle;
 
@@ -17,9 +38,11 @@ public class StoryEditor : MonoBehaviour
 
     private void Awake()
     {
+        DontDestroySingleton();
         nodeNameIndex = 0;                                          // DAVE
         elementObjectList = new List<GameObject>();
         pnl_elementSelected.SetActive(true);
+        //pnl_elementInfo.SetActive(false);
     }
 
 
@@ -28,13 +51,8 @@ public class StoryEditor : MonoBehaviour
         PlayerPrefs.SetString("StoryTitle", storyTitle);
         PlayerPrefs.SetInt("StoryLength", elementObjectList.Count);
         Debug.Log("Title Set: " + PlayerPrefs.GetString("StoryTitle")) ;
-        SaveStoryToDictionary();
 
-    }
 
-    private void SaveStoryToDictionary()
-    {
-        StoryLibraryManager.Instance.storyDict.Add(0, new Story(0,"","",0, 0));
     }
 
     public void ReturnToLibrary() {
@@ -61,4 +79,11 @@ public class StoryEditor : MonoBehaviour
     }
 
     #endregion
+
+
+
+    public void ShowInfoPanel() {
+        pnl_elementInfo.SetActive(false);
+        Debug.Log("Visible?");
+    }
 }

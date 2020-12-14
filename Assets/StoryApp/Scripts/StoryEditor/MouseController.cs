@@ -142,11 +142,18 @@ public class MouseController : MonoBehaviour
                     startNode.DragOutNodes(currentPos);
                     startNode.DragInNodes(currentPos);
                 }
-                //if (Input.GetMouseButtonUp(0))
-                //{
-                //    //
-                //}
+                else if (Input.GetMouseButtonDown(1))
+                {
+                    Debug.Log(MouseButtonDownRay().GetComponent<Node>().nodeName);
+                    ///
+                    /// NeedFix
+                    /// 
+                    MouseButtonDownRay().GetComponent<Node>().uiUpdated = true;
+                    MouseButtonDownRay().GetComponent<Node>().updateUI = () => UIStoryEditor.Instance.ShowInfoPanel();
+                    //UIStoryEditor.Instance.ShowInfoPanel();
 
+
+                }
 
                 break;
 

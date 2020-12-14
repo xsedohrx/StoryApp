@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Node : MonoBehaviour
@@ -52,8 +53,8 @@ public class Node : MonoBehaviour
     public SortedDictionary<string, GameObject> outLinkDictionary { get; set; }
     // ----------------------------------
 
-
-
+    public Action updateUI;
+    public bool uiUpdated;
 
     public static bool queriesHitTriggers = true;   // ensures this object remains a HitTrigger for collider
 
@@ -73,12 +74,20 @@ public class Node : MonoBehaviour
 
         this.gameObject.GetComponent<MeshRenderer>().material.color = this.nodeNoHighlightColor;
         this.access = Access.open;
+        updateUI?.Invoke();
+    }
+
+    private void Update()
+    {
+        updateUI?.Invoke();
     }
 
     public bool isCapacity()
     {
         return this.outLinkCount == this.maxOutLinks ? true : false;
     }
+
+
 
     public string ReturnName()
     {
@@ -223,6 +232,11 @@ public class Node : MonoBehaviour
         //dataContainer.AddGameObjList(currentGO);
         AddOutLinkDict(linkName, currentGO);
         return currentGO;
+    }
+
+    public static implicit operator Action<object>(Node v)
+    {
+        throw new NotImplementedException();
     }
 
 

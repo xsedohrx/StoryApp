@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 public class StoryManager : MonoBehaviour
 {
    public void LoadStoryScene(){
-
         SceneManager.LoadScene("StorySelectionScene");
    }
 }

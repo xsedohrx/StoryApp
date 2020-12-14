@@ -9,9 +9,7 @@ using UnityEngine.EventSystems;
 /// </summary>
 public class LibraryGameObjectGenerator : MonoBehaviour
 {
-
     #region SingletonSetup
-
     private static LibraryGameObjectGenerator _instance;
     public static LibraryGameObjectGenerator Instance
     {
@@ -48,8 +46,7 @@ public class LibraryGameObjectGenerator : MonoBehaviour
 
     private void OnDisable()
     {
-        StoryLibraryManager.Instance.GenerateStories -= GenerateStory;
-        
+        StoryLibraryManager.Instance.GenerateStories -= GenerateStory;        
     }
 
     #endregion
