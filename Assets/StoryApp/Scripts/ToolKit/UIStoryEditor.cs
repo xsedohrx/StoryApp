@@ -33,7 +33,6 @@ public class UIStoryEditor : MonoBehaviour
     GameObject elementGameObject, pnl_elementSelected, pnl_elementInfo;
     private float xOffset;
     public Text txt_storyTitle;
-
     public int nodeNameIndex { get; set; }                          // DAVE
 
     private void Awake()
@@ -42,17 +41,14 @@ public class UIStoryEditor : MonoBehaviour
         nodeNameIndex = 0;                                          // DAVE
         elementObjectList = new List<GameObject>();
         pnl_elementSelected.SetActive(true);
-        //pnl_elementInfo.SetActive(false);
+        pnl_elementInfo.SetActive(false);
     }
-
 
     public void SaveStory() {
         string storyTitle = txt_storyTitle.text.ToString();
         PlayerPrefs.SetString("StoryTitle", storyTitle);
         PlayerPrefs.SetInt("StoryLength", elementObjectList.Count);
         Debug.Log("Title Set: " + PlayerPrefs.GetString("StoryTitle")) ;
-
-
     }
 
     public void ReturnToLibrary() {
@@ -65,7 +61,6 @@ public class UIStoryEditor : MonoBehaviour
     {
         xOffset = 1.5f;
         SpawnElement(new Vector3(-8 + elementObjectList.Count * xOffset, 0, 0));
-
     }
 
     private void SpawnElement(Vector3 positionToSpawn)
@@ -80,10 +75,11 @@ public class UIStoryEditor : MonoBehaviour
 
     #endregion
 
-
-
     public void ShowInfoPanel() {
+        pnl_elementInfo.SetActive(true);        
+    }
+
+    public void HideInfoPanel() {
         pnl_elementInfo.SetActive(false);
-        Debug.Log("Visible?");
     }
 }

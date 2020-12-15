@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Data class containing story info.
+/// </summary>
 public class Story
 {    
     #region Properties
@@ -56,10 +59,6 @@ public class Story
 
     #endregion
 
-    //public void GenerateStoryElements(int index) {          
-    //    StoryElement st = new StoryElement(index, StoryLibraryManager.Instance._storyDict[index].Title, StoryLibraryManager.Instance._storyDict[index].Description );
-    //    StoryLibraryManager.Instance._storyElementDict.Add(index, st);
-
-    //}
+   
 }
 

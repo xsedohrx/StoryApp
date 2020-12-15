@@ -158,11 +158,6 @@ public class MouseController : MonoBehaviour
                 break;
 
             case State.selectable:
-
-                //if (Input.GetMouseButtonDown(0))
-                //{
-                //    //
-                //}
                 if (Input.GetMouseButton(0) && is_down)
                 {
                     currentPos = GetCurrentMousePosition().GetValueOrDefault();

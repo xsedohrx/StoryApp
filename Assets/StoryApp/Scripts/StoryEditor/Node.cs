@@ -234,11 +234,10 @@ public class Node : MonoBehaviour
         return currentGO;
     }
 
-    public static implicit operator Action<object>(Node v)
-    {
-        throw new NotImplementedException();
-    }
-
+    //public static implicit operator Action<object>(Node v)
+    //{
+    //    throw new NotImplementedException();
+    //}
 
     //public void HighlightToggle(State state)
     //{
@@ -266,12 +265,6 @@ public class Node : MonoBehaviour
 //    //Or 
 
 //    Func<int, int, int> Sum = (x, y) => x + y;
-
-
-
-
-
-
 
     // OLD CODE - DON'T DELETE
     //// OnMouseDown
@@ -330,9 +323,6 @@ public class Node : MonoBehaviour
     //    Debug.Log("Object Inactive - Might receive a null error");
     //    return null;
     //}
-
-
-
 
     //public GameObject ReturnUpGameobject()
     //{

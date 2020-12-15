@@ -26,9 +26,6 @@ public class Link : MonoBehaviour
         return this.lineLink;
     }
 
-
-
-
     public void Reset(GameObject nullObj)
     {
         nullObj = null;

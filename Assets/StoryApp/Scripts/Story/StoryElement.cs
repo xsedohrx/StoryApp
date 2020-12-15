@@ -3,6 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
+/// <summary>
+/// Data class containing the story element data.
+/// </summary>
 public class StoryElement
 {
     // story, id, title, image, description, position, parent, children, haschoice, choiceID
