@@ -12,8 +12,7 @@ public class MouseController : MonoBehaviour
     //public GameObject linkPrefab;
 
     // Temp | Dynamic Variables
-    public GameObject currentGameObject;
-    public GameObject currentLinkGO;
+    public GameObject currentGameObject, currentLinkGO;
 
     public enum State
     {
@@ -26,27 +25,18 @@ public class MouseController : MonoBehaviour
     [SerializeField] public State state;
 
     // Node Dynamic References
-    public GameObject startNodeGO;
-    public GameObject endNodeGO;
-
-    private Node startNode;
-    private Node endNode;
-
+    public GameObject startNodeGO, endNodeGO;
+    private Node startNode, endNode;
     private LineRenderer lineLink;
-
-
     private Link currentLink;
     private string currentlinkName;
-
     private int currentIndex;
     public bool isHighlighted;   
 
     private Vector3 currentPos;
-    private bool isDraggable;
-    private bool isClicked;
+    private bool isDraggable, isClicked, is_down;
     private int clickCount;
 
-    bool is_down;
 
     void Awake()
     {
@@ -63,7 +53,12 @@ public class MouseController : MonoBehaviour
     }
     private void Update()
     {
-        switch(state)
+        MouseState();
+    }
+
+    private void MouseState()
+    {
+        switch (state)
         {
             case State.draggable:
                 ResetTempVar();
@@ -78,7 +73,6 @@ public class MouseController : MonoBehaviour
                     MouseButtonDownRay();
                     startNodeGO = MouseButtonDownRay();
 
-
                     if (startNodeGO != null && startNodeGO.GetComponent<Node>())
                     {
                         startNode = startNodeGO.GetComponent<Node>();
@@ -88,14 +82,6 @@ public class MouseController : MonoBehaviour
                         state = State.highlighted;
                     }
                 }
-                //if (Input.GetMouseButton(0))
-                //{
-                //    //
-                //}
-                //if (Input.GetMouseButtonUp(0))
-                //{
-                //    //
-                //}
                 break;
 
             case State.highlighted:
@@ -143,18 +129,12 @@ public class MouseController : MonoBehaviour
                     startNode.DragInNodes(currentPos);
                 }
                 else if (Input.GetMouseButtonDown(1))
-                {
-                    Debug.Log(MouseButtonDownRay().GetComponent<Node>().nodeName);
-                    ///
-                    /// NeedFix
-                    /// 
+                {        
+                    //Fix This!!
                     MouseButtonDownRay().GetComponent<Node>().uiUpdated = true;
                     MouseButtonDownRay().GetComponent<Node>().updateUI = () => UIStoryEditor.Instance.ShowInfoPanel();
                     //UIStoryEditor.Instance.ShowInfoPanel();
-
-
                 }
-
                 break;
 
             case State.selectable:
@@ -166,7 +146,7 @@ public class MouseController : MonoBehaviour
 
                 if (Input.GetMouseButtonUp(0))
                 {
-                    if(startNodeGO && MouseButtonUpRay() != null && startNodeGO.GetComponent<Collider>() != MouseButtonUpRay().GetComponent<Collider>())
+                    if (startNodeGO && MouseButtonUpRay() != null && startNodeGO.GetComponent<Collider>() != MouseButtonUpRay().GetComponent<Collider>())
                     {
                         MouseButtonUpRay();
                         endNodeGO = MouseButtonUpRay();
@@ -243,7 +223,6 @@ public class MouseController : MonoBehaviour
 
                 break;
             case State.linking:
-
                 //if (Input.GetMouseButtonDown(0))
                 //{
                 //    // 
@@ -448,7 +427,6 @@ public class MouseController : MonoBehaviour
     GameObject MouseButtonDownRay()
     {
         GameObject hitReturnDown = null;
-
         Ray rayOrigin = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hitInfo;
         if (Physics.Raycast(rayOrigin, out hitInfo))
