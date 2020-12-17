@@ -21,6 +21,10 @@ public class Link : MonoBehaviour
     public Transform parentObject { get; set; }
     public LineRenderer lineLink { get; set; }
 
+    public MeshCollider edgeCollider;
+    public Vector2[] colliderpoints = new Vector2[2];
+
+
     public LineRenderer GetLineRenderer()
     {
         return this.lineLink;
