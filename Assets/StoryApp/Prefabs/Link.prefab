@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9143147551042443517}
   - component: {fileID: 9143147551042443516}
   - component: {fileID: 9143147551042443506}
+  - component: {fileID: 9096405392683182672}
   m_Layer: 0
   m_Name: Link
   m_TagString: Untagged
@@ -26,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9143147551042443507}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.7032204, y: -8.322694, z: 3739.561}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -143,3 +144,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Red: {fileID: 2100000, guid: b4221ded3f25c4a43840d509ab8abace, type: 2}
   Blue: {fileID: 2100000, guid: 359df6694bae7484cbff410f206dfa1b, type: 2}
+  edgeCollider: {fileID: 0}
+  colliderpoints:
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+--- !u!136 &9096405392683182672
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9143147551042443507}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1
+  m_Height: 1
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 0}
