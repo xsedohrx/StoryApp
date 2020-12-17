@@ -130,7 +130,12 @@ public class MouseController : MonoBehaviour
                         startNode.ColorSelect(Node.NodeColor.draggable);
                         state = State.draggable;
                     }
-                    break;
+                    //Right Click
+                    else if (Input.GetMouseButtonDown(1))
+                    {
+
+                    }
+                        break;
                 }
                 else if (Input.GetMouseButton(0))
                 {
