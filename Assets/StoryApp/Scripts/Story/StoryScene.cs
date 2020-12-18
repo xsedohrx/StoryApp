@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StoryScene : MonoBehaviour
+namespace StoryApp
 {
-    // Start is called before the first frame update
-    void Start()
+    public class StoryScene : MonoBehaviour
     {
-        Debug.Log(StoryLibraryManager.Instance);
-    }
+        // Start is called before the first frame update
+        void Start()
+        {
+            Debug.Log(StoryLibraryManager.Instance);
+        }
 
+    }
 }
