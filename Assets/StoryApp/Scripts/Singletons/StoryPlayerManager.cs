@@ -33,7 +33,6 @@ public class StoryPlayerManager : MonoBehaviour
     public void SetStory(int storyIndex) {
         Debug.Log(StoryLibraryManager.Instance.storyDict[storyIndex].ID.ToString());
 
-
         //StartStory("StoryScene");
     }
 

@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 5926462618984640305}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 0.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -111,4 +111,6 @@ MonoBehaviour:
     type: 3}
   nodeHighlightColor: {r: 0.9, g: 1, b: 0, a: 1}
   nodeNoHighlightColor: {r: 0.2924528, g: 0.2924528, b: 0.2924528, a: 0}
-  sortedListCount: 0
+  inNodeCount: 0
+  inLinkCount: 0
+  outLinkCount: 0

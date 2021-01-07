@@ -5,6 +5,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+/// <summary>
+/// Library UI is used for showing the the library in the story player version of the app.
+/// </summary>
 public class LibraryUI : MonoBehaviour
 {
     [SerializeField]
@@ -22,7 +25,6 @@ public class LibraryUI : MonoBehaviour
     private void OnEnable()
     {
         LibraryGameObjectGenerator.Instance.UpdateUI += GetStoryDictionaryItem;
-
     }
 
     private void Update()
@@ -31,8 +33,6 @@ public class LibraryUI : MonoBehaviour
         {
             togglePanel();
         }
-
-
     }
 
     private void GetStoryDictionaryItem()
@@ -61,6 +61,4 @@ public class LibraryUI : MonoBehaviour
         else
             this._storyInfoPanel.SetActive(true);
     }
-
-
 }
