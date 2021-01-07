@@ -5,21 +5,17 @@ using UnityEngine;
 
 namespace StoryApp
 {
+    // Required Components
+    [RequireComponent(typeof(LineCollider))]
     [RequireComponent(typeof(LineRenderer))]
     [RequireComponent(typeof(LineRendererSettings))]
     [RequireComponent(typeof(ColorPallete))]
     public class Node : MonoBehaviour
     {
-        // External References
-        //public DataContainer dataContainer;
-
-        // Required Components
-
-
         //Prefabs
         public GameObject linkPrefab;
 
-        // Enum
+        // Enums
         public enum Access
         {
             open,
@@ -78,10 +74,8 @@ namespace StoryApp
         public SortedDictionary<string, GameObject> outLinkDictionary { get; set; }
         // ----------------------------------
         // Actions& Events
-        //public static Func<string, Color> OnGetColor
-
-        //public static Action<int, LineRenderer> OnLineColor;
         public static Action<int, LineRenderer, Vector3, Vector3> OnLineInitalSettings;
+        public static Func<GameObject, float, CapsuleCollider> OnColliderInitialSettings;
         // ----------------------------------
 
 
@@ -101,25 +95,9 @@ namespace StoryApp
             outLinkDictionary = new SortedDictionary<string, GameObject>();
 
             access = Access.open;
-            ColorSelect(NodeColor.draggable);
         }
 
         // Node Helper Functions
-        public void ColorSelect(NodeColor nodeColor)
-        {
-            switch (nodeColor)
-            {
-                case NodeColor.draggable:
-                    gameObject.GetComponent<MeshRenderer>().material.color = new Color(0.3f, 0.3f, 0.3f);
-                    break;
-                case NodeColor.highlighted:
-                    gameObject.GetComponent<MeshRenderer>().material.color = new Color(0.9f, 1, 0);
-                    break;
-                case NodeColor.selectable:
-                    gameObject.GetComponent<MeshRenderer>().material.color = new Color(0.9f, 1, 0);
-                    break;
-            }
-        }
         public void AddInNodeDict(string nodeName, GameObject gameObject)
         {
             if (!inNodeDictionary.ContainsKey(nodeName))
@@ -267,37 +245,20 @@ namespace StoryApp
                 lineLink = currentLink.GetComponent<LineRenderer>();
 
                 // Link Assignments
-
-                //currentLink.name = startNode.outLinkCount == 0 ? startNode.name + "Link" + "A" : startNode.name + "Link" + " B";
-
                 currentLink.linkIndex = 0;
                 currentLink.startPos = nodeGameObj.transform.position;
                 currentLink.linkOriginNode = nodeGameObj;
 
                 //Node Assignments for the node that has just been clicked on to initiate the LineRenderer;
                 AssignOutLink(outLinkCount, currentGO, nodeGameObj, out string name);
-
-
                 linkName = name;
                 currentLink.name = name;
 
-                lineLink.enabled = true;
-                lineLink.material = new Material(Shader.Find("Sprites/Default"));
-
-                //OnLineColor?.Invoke(outLinkCount, lineLink);
-
-                //lineLink.positionCount = 2;
-                //lineLink.startWidth = 0.2f;
-                //lineLink.SetPosition(0, nodeGameObj.transform.position);                  // nodeGameObj.transform.position)
-                //lineLink.SetPosition(1, nodeGameObj.transform.position);
-
+                // LineRenderer Settings
                 OnLineInitalSettings?.Invoke(outLinkCount, lineLink, nodeGameObj.transform.position, nodeGameObj.transform.position);
 
                 // Edge Collider Assignments
-                capsule = currentGO.GetComponent<CapsuleCollider>();
-                capsule.radius = lineLink.startWidth * 0.5f;
-                capsule.center = Vector3.zero;
-                capsule.direction = 2; // Z-axis for easier "LookAt" orientation
+                capsule = OnColliderInitialSettings?.Invoke(currentGO, lineLink.startWidth);
             }
             // Add Link GameObejct to List
             return currentGO;
