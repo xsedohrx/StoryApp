@@ -98,27 +98,27 @@ namespace StoryApp
         /// </summary>
         private void AddStoryElementsToList()
         {
-            for (int i = 0; i < storyDict.Count; i++)
-            {
-                for (int j = 0; j < storyDict[i].StoryLength; j++)
-                {
+            //for (int i = 0; i < storyDict.Count; i++)
+            //{
+            //    for (int j = 0; j < storyDict[i].StoryLength; j++)
+            //    {
 
-                    //this._id = id;
-                    //this._idOfStory = idOfStory;
-                    //this._title = title;
-                    //this._description = description;
-                    //this._hasChoice = hasChoice;
-                    //this._choiceID = choiceID;
-                    //this._position = position;
-                    //this._parent = parent;
-                    //this._parents = parents;
-                    //this._children = children;
-                    //this._image = image;
-                    StoryElement se = new StoryElement(j, " ", " ", true, i);
-                    storyElements.Add(se);
-                    Debug.Log("Element: " + storyDict[i].Title);
-                }
-            }
+            //        //this._id = id;
+            //        //this._idOfStory = idOfStory;
+            //        //this._title = title;
+            //        //this._description = description;
+            //        //this._hasChoice = hasChoice;
+            //        //this._choiceID = choiceID;
+            //        //this._position = position;
+            //        //this._parent = parent;
+            //        //this._parents = parents;
+            //        //this._children = children;
+            //        //this._image = image;
+            //        StoryElement se = new StoryElement(j, " ", " ", true, i);
+            //        storyElements.Add(se);
+            //        Debug.Log("Element: " + storyDict[i].Title);
+            //    }
+            //}
         }
 
         #endregion
