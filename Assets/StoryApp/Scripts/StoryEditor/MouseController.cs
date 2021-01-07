@@ -102,7 +102,7 @@ namespace StoryApp
                         if (MouseButtonDownRay() == null)
                         {
                             is_down = false;
-                        OnNodeColor?.Invoke(startNodeGO, ColorPallete.NodeColor.draggable);
+                            OnNodeColor?.Invoke(startNodeGO, ColorPallete.NodeColor.draggable);
                             state = State.draggable;
                         }
                         else if (startNodeGO != null && startNode.isCapacity())
@@ -127,7 +127,7 @@ namespace StoryApp
                             OnNodeColor?.Invoke(startNodeGO, ColorPallete.NodeColor.draggable);
                             state = State.draggable;
                         }
-                            //break;
+                        //break;
                     }
                     else if (Input.GetMouseButton(0))
                     {
@@ -193,7 +193,7 @@ namespace StoryApp
 
                                 // Set LineRenderer Attributes
                                 OnSetLineEndPos?.Invoke(lineLink, currentLink.endPos);
-                                
+
 
                                 // Capsule Collider Assignments
                                 capsule.transform.position = startNodeGO.transform.position + (endNodeGO.transform.position - startNodeGO.transform.position) / 2;

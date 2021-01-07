@@ -18,7 +18,7 @@ namespace StoryApp
         public GameObject linkOriginNode { get; set; }
         public GameObject linkDestinationNode { get; set; }
 
-      
+
         public void Reset(GameObject nullObj)
         {
             nullObj = null;

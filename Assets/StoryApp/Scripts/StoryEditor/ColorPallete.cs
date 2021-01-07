@@ -76,7 +76,7 @@ public class ColorPallete : MonoBehaviour
         }
     }
 
-public void ColorNode(GameObject objToColor, NodeColor nodeColor)
+    public void ColorNode(GameObject objToColor, NodeColor nodeColor)
     {
         switch (nodeColor)
         {

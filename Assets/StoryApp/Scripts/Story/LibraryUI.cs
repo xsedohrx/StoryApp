@@ -8,23 +8,20 @@ using TMPro;
 /// <summary>
 /// Library UI is used for showing the the library in the story player version of the app.
 /// </summary>
-public class LibraryUI : MonoBehaviour
+namespace StoryApp
 {
+
     public class LibraryUI : MonoBehaviour
     {
+
         [SerializeField]
         private GameObject _storyInfoPanel;
         [SerializeField]
         private TMP_Text _txtTitle, _txtDescription, _txtAge, _txtStoryLength;
 
-    private void OnEnable()
-    {
-        LibraryGameObjectGenerator.Instance.UpdateUI += GetStoryDictionaryItem;
-    }
-
-        }
-    }
-
+        private void OnEnable()
+        {
+            LibraryGameObjectGenerator.Instance.UpdateUI += GetStoryDictionaryItem;
         }
 
         private void GetStoryDictionaryItem()
@@ -46,11 +43,12 @@ public class LibraryUI : MonoBehaviour
             this._txtStoryLength.text = story.StoryLength.ToString() + "";
         }
 
-    public void togglePanel()
-    {
-        if (this._storyInfoPanel.activeSelf)
-            this._storyInfoPanel.SetActive(false);        
-        else
-            this._storyInfoPanel.SetActive(true);
+        public void togglePanel()
+        {
+            if (this._storyInfoPanel.activeSelf)
+                this._storyInfoPanel.SetActive(false);
+            else
+                this._storyInfoPanel.SetActive(true);
+        }
     }
 }

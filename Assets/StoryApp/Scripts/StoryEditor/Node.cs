@@ -79,8 +79,10 @@ namespace StoryApp
         // ----------------------------------
 
 
-    public Action updateUI;
-    public bool uiUpdated;
+        private void Awake()
+        {
+            inNodeCount = 0;
+            inNodeDictionary = new SortedDictionary<string, GameObject>();
 
             outNodeCount = 0;
             outNodeDictionary = new SortedDictionary<string, GameObject>();

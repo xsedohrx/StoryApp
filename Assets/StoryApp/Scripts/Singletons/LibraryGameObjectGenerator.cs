@@ -9,18 +9,19 @@ using UnityEngine.EventSystems;
 /// </summary>
 namespace StoryApp
 {
-    #region SingletonSetup
-    private static LibraryGameObjectGenerator _instance;
-    public static LibraryGameObjectGenerator Instance
-    {
-        get
+    public class LibraryGameObjectGenerator : MonoBehaviour 
+    { 
+
+        #region SingletonSetup
+        private static LibraryGameObjectGenerator _instance;
+        public static LibraryGameObjectGenerator Instance
         {
             get
             {
                 if (_instance == null)
                     Debug.LogError("SpawnManager is NULL");
-                return _instance;
-            }
+                return _instance;                
+            } 
         }
         //Never destroy the singleton.
         private void DontDestroySingleton()
@@ -43,11 +44,8 @@ namespace StoryApp
         {
             DontDestroySingleton();
             StoryLibraryManager.Instance.GenerateStories += GenerateStory;
+        }
 
-    private void OnDisable()
-    {
-        StoryLibraryManager.Instance.GenerateStories -= GenerateStory;        
-    }
 
         private void OnDisable()
         {
