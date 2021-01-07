@@ -12,6 +12,8 @@ namespace StoryApp{
 public class StoryElement
 {
  
+    //TODO When an element needs to be edited is shall be removed from the dictionary and recreated and readded.
+
     // story, id, title, image, description, position, parent, children, haschoice, choiceID
     #region Properties
     public int _id { get; }
@@ -22,6 +24,7 @@ public class StoryElement
     public int _choiceID { get; }
     public Vector3 _position { get; }
     public Node _parent { get; }
+    public List<Node> _parents { get; }
     public List<Node> _children { get; }
     public Image _image { get; }
 
@@ -29,7 +32,7 @@ public class StoryElement
     #region StoryElementConstructor
 
     public StoryElement(int id, int idOfStory, string title, string description, bool hasChoice,
-        int choiceID, Vector3 position, Node parent, List<Node> children, Image image)
+        int choiceID, Vector3 position, Node parent,List<Node> parents, List<Node> children, Image image)
     {
         this._id = id;
         this._idOfStory = idOfStory;
@@ -39,6 +42,7 @@ public class StoryElement
         this._choiceID = choiceID;
         this._position = position;
         this._parent = parent;
+        this._parents = parents;
         this._children = children;
         this._image = image;
     }

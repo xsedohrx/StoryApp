@@ -76,7 +76,6 @@ namespace StoryApp
             elementObjectList.Add(elementGameObjectToAdd);
             nodeNameIndex++;
         }
-
         #endregion
 
         public void ShowInfoPanel()
