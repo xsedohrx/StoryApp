@@ -59,9 +59,7 @@ namespace StoryApp
 
             //Add to Dictionary
             AddStoryToDictionary(0, new Story(0, "First", "hhjdksaglkfh", 6, 10));
-            AddStoryToDictionary(1, new Story(1, "second", "jyukuytui  hhjjgbjndkfdsbn  asaglkfh", 12, 2));
-            AddStoryToDictionary(2, new Story(2, "third", "dfsa", 9, 3));
-            //AddStoryElementsToList();
+            AddStoryElementsToList();
         }
 
         private void Update()
@@ -98,18 +96,30 @@ namespace StoryApp
         /// <summary>
         /// For the story length of every story an element is created and added to the storyelement list.
         /// </summary>
-        //private void AddStoryElementsToList()
-        //{
-        //    for (int i = 0; i < storyDict.Count; i++)
-        //    {
-        //        for (int j = 0; j < storyDict[i].StoryLength; j++)
-        //        {
-        //            StoryElement se = new StoryElement(j, " ", " ", true, i);
-        //            storyElements.Add(se);
-        //            Debug.Log("Element: " + storyDict[i].Title);
-        //        }
-        //    }
-        //}
+        private void AddStoryElementsToList()
+        {
+            for (int i = 0; i < storyDict.Count; i++)
+            {
+                for (int j = 0; j < storyDict[i].StoryLength; j++)
+                {
+
+                    //this._id = id;
+                    //this._idOfStory = idOfStory;
+                    //this._title = title;
+                    //this._description = description;
+                    //this._hasChoice = hasChoice;
+                    //this._choiceID = choiceID;
+                    //this._position = position;
+                    //this._parent = parent;
+                    //this._parents = parents;
+                    //this._children = children;
+                    //this._image = image;
+                    StoryElement se = new StoryElement(j, " ", " ", true, i);
+                    storyElements.Add(se);
+                    Debug.Log("Element: " + storyDict[i].Title);
+                }
+            }
+        }
 
         #endregion
 

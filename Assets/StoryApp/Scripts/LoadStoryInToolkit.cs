@@ -40,8 +40,8 @@ namespace StoryApp
             PlayerPrefs.SetString("Description", StoryLibraryManager.Instance.storyDict[storyIndex].Description.ToString());
             PlayerPrefs.SetInt("AgeGroup", StoryLibraryManager.Instance.storyDict[storyIndex].AgeGroup);
             PlayerPrefs.SetInt("StoryLength", StoryLibraryManager.Instance.storyDict[storyIndex].StoryLength);
-            Debug.Log(PlayerPrefs.GetInt("Id") + PlayerPrefs.GetString("Title") + PlayerPrefs.GetString("Description") + PlayerPrefs.GetInt("AgeGroup") + PlayerPrefs.GetInt("StroyLength"));
-            StartStory("StoryEditor");
+            Debug.Log(PlayerPrefs.GetInt("Id") + PlayerPrefs.GetString("Title") + PlayerPrefs.GetString("Description") + PlayerPrefs.GetInt("AgeGroup") + PlayerPrefs.GetInt("StoryLength"));
+            StartStory("StoryScene");
         }
 
 

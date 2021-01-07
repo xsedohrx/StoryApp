@@ -121,6 +121,7 @@ namespace StoryApp
 
                             state = State.selectable;
                         }
+                        
                         else if (startNodeGO != null && startNodeGO.GetComponent<Node>() && MouseButtonDownRay().GetComponent<Collider>() != startNodeGO.GetComponent<Collider>())
                         {
                             is_down = false;
