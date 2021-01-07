@@ -6,12 +6,12 @@ using UnityEngine.EventSystems;
 
 namespace StoryApp
 {
-    public class LoadStoryInToolkit : MonoBehaviour
+    public class StoryManager : MonoBehaviour
     {
 
         #region Singleton
-        private static LoadStoryInToolkit _instance;
-        public static LoadStoryInToolkit Instance
+        private static StoryManager _instance;
+        public static StoryManager Instance
         {
             get
             {
@@ -33,6 +33,7 @@ namespace StoryApp
         Story storyToPlay;
         public void GetStoryToPlay(int storyIndex)
         {
+            //storyIndex = gameObject.GetComponentInChildren<LibraryUI>()>
             storyToPlay = StoryLibraryManager.Instance.storyDict[storyIndex];
 
             PlayerPrefs.SetInt("Id", StoryLibraryManager.Instance.storyDict[storyIndex].ID);

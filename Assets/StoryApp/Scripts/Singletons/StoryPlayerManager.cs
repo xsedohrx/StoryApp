@@ -35,8 +35,8 @@ namespace StoryApp
         public void SetStory(int storyIndex) {
             Debug.Log(StoryLibraryManager.Instance.storyDict[storyIndex].ID.ToString());
 
-        //StartStory("StoryScene");
-    }
+            //StartStory("StoryScene");
+        }
 
         public void StartStory(string sceneName) {
             SceneManager.LoadScene(sceneName);

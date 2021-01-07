@@ -19,9 +19,11 @@ namespace StoryApp
         [SerializeField]
         private TMP_Text _txtTitle, _txtDescription, _txtAge, _txtStoryLength;
 
+
         private void OnEnable()
         {
             LibraryGameObjectGenerator.Instance.UpdateUI += GetStoryDictionaryItem;
+            
         }
 
         private void GetStoryDictionaryItem()
@@ -41,14 +43,21 @@ namespace StoryApp
             this._txtDescription.text = story.Description.ToString() + "";
             this._txtAge.text = story.AgeGroup.ToString() + "";
             this._txtStoryLength.text = story.StoryLength.ToString() + "";
+            
         }
 
         public void togglePanel()
         {
-            if (this._storyInfoPanel.activeSelf)
+            if (this._storyInfoPanel.activeSelf) { 
                 this._storyInfoPanel.SetActive(false);
+                
+            }
             else
+            {
                 this._storyInfoPanel.SetActive(true);
+                //transform.SetAsLastSibling();
+            }
         }
+
     }
 }

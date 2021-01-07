@@ -6,18 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/StoryApp/Scenes/ToolKit.unity
-    guid: 6a52b7371bcd83f45afc15136d1077db
-  - enabled: 1
-    path: Assets/StoryApp/Scenes/StoryLibrary.unity
-    guid: dafc9d0bd0182d540a8e01a8e8958249
-  - enabled: 1
     path: Assets/StoryApp/Scenes/StoryScene.unity
     guid: 4559c58801150144bb7ccb262eb6f143
   - enabled: 1
     path: Assets/StoryApp/Scenes/StoryEditor.unity
     guid: 917f6f55929d074459faf4509a5f9822
   - enabled: 1
-    path: Assets/StoryApp/Scenes/ToolkitLibrary.unity
+    path: Assets/StoryApp/Scenes/Library.unity
     guid: e57f3098c6e632e4aa980b85db30da13
   m_configObjects: {}
